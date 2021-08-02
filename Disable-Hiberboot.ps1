@@ -1,6 +1,7 @@
 # Script to disable hiberboot on Windows systems
 # Queries the registry for a given VALUE, located at a given PATH (set initial variables)
 # If the value is found, contents are modified according to specs given
+# If the value is NOT found, it exits (you could alter this to have the value created, if desired)
 # The 'HiberbootEnabled' value must be set to 0 for hiberboot / fast start-up to be disabled
 
 
@@ -35,7 +36,7 @@ Function CheckRegistryValueExists() {
             Write-Host Current value: $valueContents
 
             # Check the reg value contents, and update them if not already set to desired value
-            if ($valueContents -ne "NO")
+            if ($valueContents -ne $newValue)
                 {
                     Write-Host Setting value to $newValue
                     Set-ItemProperty -Path $registryPath -Name $valueName -Value $newValue
