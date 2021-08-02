@@ -1,4 +1,6 @@
 # Script to disable hiberboot on Windows systems
+# Queries the registry for a given VALUE, located at a given PATH (set initial variables)
+# If the value is found, contents are modified according to specs given
 # The 'HiberbootEnabled' value must be set to 0 for hiberboot / fast start-up to be disabled
 
 
