@@ -87,7 +87,7 @@ Function SetRegistryValue() {
             # Add the key/value
             Try
                 {
-                    New-ItemProperty -Path $registryPath -Name $valueName -Value $desiredValue -PropertyType $propertyType
+                    New-ItemProperty -Path $registryPath -Name $valueName -Value $desiredValue -PropertyType $propertyType -ErrorAction SilentlyContinue
                     Write-Host Added $valueName to the registry and set its value to $desiredValue
                     return
                 }
