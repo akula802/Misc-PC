@@ -11,10 +11,12 @@ $registryPath = "Microsoft.PowerShell.Core\Registry::HKEY_LOCAL_MACHINE\SOFTWARE
 # This flag tells Windows that release targeting is desired
 $regKey1_name = "TargetReleaseVersion"
 $regKey1_desiredValue = "1"
+$regKey1_propType = "Dword"
 
 # This flag tells Windows which release is the target
 $RegKey2_name = "TargetReleaseVersionInfo"
 $regKey2_desiredValue = "21H1"
+$regKey2_propType = "String"
 
 
 
@@ -117,5 +119,5 @@ Function SetRegistryValue() {
 
 
 # Execute the query functions, using the expanded variables as parameters
-SetRegistryValue -Path $registryPath -valueName $regKey1_name -desiredValue $regKey1_desiredValue -propertyType Dword
-SetRegistryValue -Path $registryPath -valueName $regKey2_name -desiredValue $regKey2_desiredValue -propertyType String
+SetRegistryValue -Path $registryPath -valueName $regKey1_name -desiredValue $regKey1_desiredValue -propertyType $regKey1_propType
+SetRegistryValue -Path $registryPath -valueName $regKey2_name -desiredValue $regKey2_desiredValue -propertyType $regKey2_propType
