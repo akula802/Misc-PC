@@ -2,6 +2,7 @@
 # Function queries the registry for a given VALUE, located at a given PATH (set in initial variables)
 # If the value is found, contents are modified according to specs given
 # If the value is not found, it is created
+# Saved on 10/11/2021 to:   https://github.com/akula802/Misc-PC/blob/main/Block-Windows11.ps1
 
 
 
@@ -59,7 +60,8 @@ Function SetRegistryValue() {
                     $newValueContents = Get-ItemProperty -Path $registryPath -Name $valueName -ErrorAction Stop | Select-Object -ExpandProperty $valueName
                     if ($newValueContents -eq $desiredValue)
                         {
-                            Write-Host New value: $newValueContents. Script was successful. Exiting...
+                            Write-Host New value: $newValueContents. Function was successful.
+                            return
                         }
                     else
                         {
