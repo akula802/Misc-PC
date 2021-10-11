@@ -2,8 +2,6 @@
 # Function queries the registry for a given VALUE, located at a given PATH (set in initial variables)
 # If the value is found, contents are modified according to specs given
 # If the value is not found, it is created
-# Saved on 10/11/2021 to:   https://github.com/akula802/Misc-PC/blob/main/Block-Windows11.ps1
-
 
 
 # Define some initial variables
@@ -54,7 +52,7 @@ Function SetRegistryValue() {
             if ($valueContents -ne $desiredValue)
                 {
                     Write-Host Setting value to $desiredValue
-                    Set-ItemProperty -Path $registryPath -Name $valueName -Value $desiredValue
+                    Set-ItemProperty -Path $registryPath -Name $valueName -Value $desiredValue -ErrorAction SilentlyContinue
                     
                     # Make sure the key's value was properly set by the preceding command
                     $newValueContents = Get-ItemProperty -Path $registryPath -Name $valueName -ErrorAction Stop | Select-Object -ExpandProperty $valueName
@@ -82,7 +80,7 @@ Function SetRegistryValue() {
     catch [System.Management.Automation.PSArgumentException]
         {
             # The key does not exist, create it and set the value
-            Write-Host The $valueName value was NOT found at $registryPath. Creating it now...
+            Write-Host The $valueName value was NOT found. Creating it now...
 
             # Add the key/value
             Try
