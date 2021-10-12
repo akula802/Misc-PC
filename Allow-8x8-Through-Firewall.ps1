@@ -7,6 +7,7 @@
 
 
 
+
 # Get the path(s) to the app, and return only the current one
 # Current app has the highest number in the path string (e.g. 3.2.4 > 2.9.7)
 Try
@@ -59,6 +60,7 @@ Try
                 
                 Try
                     {
+                        # Create the rule
                         New-NetFirewallRule -Name $fwRuleName -DisplayName $fwRuleName -Profile Domain, Private -Direction Inbound -Program $appPath -Enabled True | Out-Null
                         Write-Host Firewall rule created: $fwRuleName
                         exit
@@ -66,7 +68,7 @@ Try
 
                 Catch
                     {
-                        # In the case of an unexpected exception, return the type so it can be added to a catch block later
+                        # In the case of an unexpected exception while creating the rule, return the type so it can be added to a specific catch block later
                         Write-Host An exception occurred while trying to find the firewall rule by name.
                         Write-Host Specific exception type: $Error[0].Exception.GetType().FullName
                         exit
@@ -138,3 +140,4 @@ Catch
         Write-Host Specific exception type: $Error[0].Exception.GetType().FullName
         exit
     }
+
