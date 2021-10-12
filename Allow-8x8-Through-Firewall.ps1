@@ -7,7 +7,6 @@
 
 
 
-
 # Get the path(s) to the app, and return only the current one
 # Current app has the highest number in the path string (e.g. 3.2.4 > 2.9.7)
 Try
