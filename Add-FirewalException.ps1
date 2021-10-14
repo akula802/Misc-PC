@@ -1,3 +1,5 @@
+# This us a FUNCTION-IZED version of 'allow-8x8-through-firewall.ps1"
+
 # Script to get path to an .exe and allow it though the Windows Firewall
 # Created for a client's '8x8' telephony app, which requires Admin approval for firewall exceptions at every update
 # The users at this client are NOT local Administrators on their machines
