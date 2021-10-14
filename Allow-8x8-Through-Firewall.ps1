@@ -33,7 +33,7 @@ Catch
 
 
 # Exit the script if the app is not found
-if ($Path)
+if ($appPath)
     {
         Write-Host Current app is at: $appPath
     }
