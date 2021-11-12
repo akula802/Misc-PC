@@ -32,16 +32,16 @@ Function CheckRegistryValueExists() {
     try
         {
             # Get the reg value's current contents
-            $valueContents = Get-ItemProperty -Path $registryPath -Name $valueName -ErrorAction Stop | Select-Object -ExpandProperty $valueName
+            $valueContents = Get-ItemProperty -Path $Path -Name $valueName -ErrorAction Stop | Select-Object -ExpandProperty $valueName
             Write-Host Current value: $valueContents
 
             # Check the reg value contents, and update them if not already set to desired value
             if ($valueContents -ne $newValue)
                 {
                     Write-Host Setting value to $newValue
-                    Set-ItemProperty -Path $registryPath -Name $valueName -Value $newValue
+                    Set-ItemProperty -Path $Path -Name $valueName -Value $newValue
                     
-                    $newValueContents = Get-ItemProperty -Path $registryPath -Name $valueName -ErrorAction Stop | Select-Object -ExpandProperty $valueName
+                    $newValueContents = Get-ItemProperty -Path $Path -Name $valueName -ErrorAction Stop | Select-Object -ExpandProperty $valueName
                     Write-Host New value: $newValueContents. Script was successful. Exiting...
                 }
             else
@@ -54,7 +54,7 @@ Function CheckRegistryValueExists() {
 
     catch [System.Management.Automation.PSArgumentException]
         {
-            Write-Host The $valueName value was NOT found at $registryPath
+            Write-Host The $valueName value was NOT found at $Path
             exit
         }
 
