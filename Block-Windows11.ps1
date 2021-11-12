@@ -45,17 +45,17 @@ Function SetRegistryValue() {
             $Error.Clear()
 
             # Get the reg value's current contents
-            $valueContents = Get-ItemProperty -Path $registryPath -Name $valueName -ErrorAction Stop | Select-Object -ExpandProperty $valueName
+            $valueContents = Get-ItemProperty -Path $Path -Name $valueName -ErrorAction Stop | Select-Object -ExpandProperty $valueName
             Write-Host Current value: $valueContents
 
             # Check the reg value contents, and update them if not already set to desired value
             if ($valueContents -ne $desiredValue)
                 {
                     Write-Host Setting value to $desiredValue
-                    Set-ItemProperty -Path $registryPath -Name $valueName -Value $desiredValue -ErrorAction SilentlyContinue
+                    Set-ItemProperty -Path $Path -Name $valueName -Value $desiredValue -ErrorAction SilentlyContinue
                     
                     # Make sure the key's value was properly set by the preceding command
-                    $newValueContents = Get-ItemProperty -Path $registryPath -Name $valueName -ErrorAction Stop | Select-Object -ExpandProperty $valueName
+                    $newValueContents = Get-ItemProperty -Path $Path -Name $valueName -ErrorAction Stop | Select-Object -ExpandProperty $valueName
                     if ($newValueContents -eq $desiredValue)
                         {
                             Write-Host New value: $newValueContents. Function was successful.
@@ -85,7 +85,7 @@ Function SetRegistryValue() {
             # Add the key/value
             Try
                 {
-                    New-ItemProperty -Path $registryPath -Name $valueName -Value $desiredValue -PropertyType $propertyType -ErrorAction SilentlyContinue
+                    New-ItemProperty -Path $Path -Name $valueName -Value $desiredValue -PropertyType $propertyType -ErrorAction SilentlyContinue
                     Write-Host Added $valueName to the registry and set its value to $desiredValue
                     return
                 }
@@ -111,6 +111,7 @@ Function SetRegistryValue() {
         {
             Write-Host Something terrible happened while executing the registry query.
             Write-Host Specific exception type: $Error[0].Exception.GetType().FullName
+            Write-Host $Error
             return
         }
 
