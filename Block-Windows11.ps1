@@ -96,16 +96,29 @@ Function SetRegistryValue() {
                     return
                 }
 
-            Write-Host
-
             return
-        }
+        } # End catch PSArgumentException
 
     catch [System.Management.Automation.ItemNotFoundException]
         {
             Write-Host The query failed. Double-check your REGISTRY PATH input.
+            # Probably the 'Windows Update' item does not exist under the 'Windows' key
+            # This has been a thing with new 21H1 installs and MDT-deployed 21H1 machines
+            Try
+                {
+                    New-ItemProperty -Path $Path -Name $valueName -Value $desiredValue -PropertyType $propertyType -ErrorAction SilentlyContinue
+                    Write-Host Added $valueName to the registry and set its value to $desiredValue
+                    return
+                }
+            Catch
+                {
+                    Write-Host Unable to add the $valueName key!
+                    Write-Host $Error
+                    return
+                }
+
             return
-        }
+        } # End catch itemNotFound
 
     catch
         {
@@ -113,7 +126,7 @@ Function SetRegistryValue() {
             Write-Host Specific exception type: $Error[0].Exception.GetType().FullName
             Write-Host $Error
             return
-        }
+        } # End general catch
 
 } # End function SetRegistryValue
 
