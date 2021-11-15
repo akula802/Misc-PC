@@ -101,11 +101,13 @@ Function SetRegistryValue() {
 
     catch [System.Management.Automation.ItemNotFoundException]
         {
-            Write-Host The query failed. Double-check your REGISTRY PATH input.
-            # Probably the 'Windows Update' item does not exist under the 'Windows' key
+            #Write-Host The query failed. Double-check your REGISTRY PATH input.
+            Write-Host The WindowsUpdate key was not found, creating it now.
+            # The 'Windows Update' item does not exist under the 'Windows' key
             # This has been a thing with new 21H1 installs and MDT-deployed 21H1 machines
             Try
                 {
+                    New-Item -Path $Path
                     New-ItemProperty -Path $Path -Name $valueName -Value $desiredValue -PropertyType $propertyType -ErrorAction SilentlyContinue
                     Write-Host Added $valueName to the registry and set its value to $desiredValue
                     return
