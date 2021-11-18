@@ -14,7 +14,7 @@ $regKey1_propType = "Dword"
 
 # This flag tells Windows which release is the target
 $RegKey2_name = "TargetReleaseVersionInfo"
-$regKey2_desiredValue = "21H1"
+$regKey2_desiredValue = "21H2"
 $regKey2_propType = "String"
 
 
