@@ -17,6 +17,11 @@ $RegKey2_name = "TargetReleaseVersionInfo"
 $regKey2_desiredValue = "21H2"
 $regKey2_propType = "String"
 
+# Added this one after reading: https://www.reddit.com/r/msp/comments/ugrhlb/windows_11_being_pushed/i72n3vu/
+$RegKey3_name = "ProductVersion"
+$regKey3_desiredValue = "Windows 10"
+$regKey3_propType = "String"
+
 
 
 # Clear the $Error variable
@@ -137,3 +142,4 @@ Function SetRegistryValue() {
 # Execute the query functions, using the expanded variables as parameters
 SetRegistryValue -Path $registryPath -valueName $regKey1_name -desiredValue $regKey1_desiredValue -propertyType $regKey1_propType
 SetRegistryValue -Path $registryPath -valueName $regKey2_name -desiredValue $regKey2_desiredValue -propertyType $regKey2_propType
+SetRegistryValue -Path $registryPath -valueName $regKey3_name -desiredValue $regKey3_desiredValue -propertyType $regKey3_propType
