@@ -18,13 +18,6 @@ $headers = @{
 $request_result = Invoke-RestMethod -Uri "$lookup_base_url=$serial_number" -Headers $headers
 
 
-# Parse the results
-$now = Get-Date
-$warranty_active_bool = $request_result.InWarranty
-$pc_approx_age = [Math]::Round((((New-TimeSpan -Start $pc_warranty_start_date -End $now).Days / 31) / 12), 2)
-$pc_ship_date = ([DateTime]$request_result.Shipped).ToString('MM-dd-yyyy')
-
-
 # Instead of calling by position, loop the .Warranty list for the proper values
 # Some computers return 1, 2, or 3 items here, probably in varying order
 $warranty_item_count = $request_result.Warranty.Count
@@ -45,10 +38,12 @@ ForEach ($item in $request_result.Warranty) {
 } # End ForEach $item in $request_result.Warranty
 
 
-# Initial testing values pulled from $request_result
-#$pc_warranty_start_date = ([DateTime]$request_result.Warranty[0].Start).ToString('MM-dd-yyyy')
-#$pc_warranty_end_date = ([DateTime]$request_result.Warranty[0].End).ToString('MM-dd-yyyy')
-#$battery_warranty_end_date = ([DateTime]$request_result.Warranty[1].End).ToString('MM-dd-yyyy')
+
+# Parse the results
+$now = Get-Date
+$warranty_active_bool = $request_result.InWarranty
+$pc_approx_age = [Math]::Round((((New-TimeSpan -Start $pc_warranty_start_date -End $now).Days / 31) / 12), 2)
+$pc_ship_date = ([DateTime]$request_result.Shipped).ToString('MM-dd-yyyy')
 
 
 # Display some info about the number of warranty items returned
