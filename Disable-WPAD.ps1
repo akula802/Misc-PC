@@ -21,7 +21,7 @@ $Error.Clear()
 
 
 
-# Define the configurable, reusable query function
+# Define the configurable, reusable query function (only does REG_SZ and DWORD at the moment)
 Function ChangeRegistryValue() {
 
     # Define the string parameters that this function requires
